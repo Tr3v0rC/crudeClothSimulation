@@ -20,6 +20,7 @@ body{
   right:0;
   width: 100;
 	position:absolute;
+  display: inline-block;
 }
 #title{
   font-size: 150%;
@@ -31,4 +32,7 @@ body{
 }
 .link{
   color: #0091EA;
+}
+input{
+  display: inline-block;
 }

@@ -1,5 +1,9 @@
 window.onload = setup;
-var width, height, particles, density=18;
+var width, height, particles,
+    density=18
+    gridX = 50,
+    gridY = 50,
+    size = 30;
 
 function setup() {
     canvas = document.getElementById("canvas");
@@ -12,6 +16,9 @@ function setup() {
 
 function draw() {
     clearCanvas();
+    c.font ="15px Arial";
+    c.fillStyle = "black";
+    c.fillText("x-margin: " + gridX + " y-margin: " + gridY + " Density: " +density, 20,20);
     for (i = 0; i < particles.length; i++) {
         var p = particles[i];
         p.behaviors();
@@ -28,9 +35,33 @@ function sizeCanvas() {
 }
 
 function setupControls() {
-    resetButton = document.getElementById("reset");
+    var resetButton = document.getElementById("reset");
     resetButton.onclick = function() {
         generateParticles(density);
+    }
+    var xIn = document.getElementById("xinput");
+    var xOut = document.getElementById("xout");
+    xOut.innerHTML = gridX;
+    xIn.oninput = function() {
+      gridX = parseInt(xIn.value);
+      generateParticles(density);
+      xOut.innerHTML = gridX;
+    }
+    var yIn = document.getElementById("yinput");
+    var yOut = document.getElementById("yout");
+    yOut.innerHTML = gridY;
+    yIn.oninput = function() {
+      gridY = parseInt(yIn.value);
+      generateParticles(density);
+      yOut.innerHTML = gridY;
+    }
+    var dIn = document.getElementById("dinput");
+    var dOut = document.getElementById("dout");
+      dOut.innerHTML = density;
+    dIn.oninput = function() {
+      density = parseInt(dIn.value);
+      generateParticles(density);
+      dOut.innerHTML = density;
     }
 }
 
@@ -45,8 +76,8 @@ window.onresize = function() {
 
 function generateParticles(step) {
     particles = [];
-    for (i = 100; i < height-100; i += step) {
-        for (j = 200; j < width-200; j += step) {
+    for (i = gridY; i < height-gridY; i += step) {
+        for (j = gridX; j < width-gridX; j += step) {
             particles.push(new Particle({x:j, y:i}, randomColour()));
         }
     }

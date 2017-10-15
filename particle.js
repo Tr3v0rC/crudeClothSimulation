@@ -5,12 +5,15 @@ function Particle(p, c){
   this.vel = {x: random(-0.2, 0.2), y: random(-0.2, 0.2)};
   this.acc = {x: 0, y: 0};
   this.colour = c;
-  this.size = 2;
+  this.size = pSize;
   this.speed = 5;
   this.force = 0.4;
 }
 
 Particle.prototype.update = function(){
+
+  this.size = pSize;
+
   this.pos.x += this.vel.x;
   this.pos.y += this.vel.y;
 
@@ -98,4 +101,13 @@ mouseY= 0;
 canvas.onmousemove = function(e){
   mouseX = e.clientX;
   mouseY = e.clientY;
+}
+var pSize = 3;
+
+var pIn = document.getElementById("pinput");
+var pOut = document.getElementById("pout");
+pOut.innerHTML = pSize;
+pIn.oninput = function() {
+  pSize = parseInt(pIn.value);
+  pOut.innerHTML = pSize;
 }
